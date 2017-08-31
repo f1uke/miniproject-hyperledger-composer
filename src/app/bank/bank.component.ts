@@ -65,6 +65,59 @@ export class BankComponent implements OnInit {
       });
   }
 
+  addAsset(form: any): Promise<any> {
+
+    this.asset = {
+      $class: "org.acme.vehicle.auction.Vehicle",
+
+
+      "vin": this.vin.value,
+
+
+
+      "owner": this.owner.value
+
+
+    };
+
+    this.myForm.setValue({
+
+
+      "vin": null,
+
+
+
+      "owner": null
+
+
+    });
+
+    return this.serviceBank.addAsset(this.asset)
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+        this.myForm.setValue({
+
+
+          "vin": null,
+
+
+
+          "owner": null
+
+
+        });
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else {
+          this.errorMessage = error;
+        }
+      });
+  }
+
   updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "org.acme.vehicle.auction.Member",
