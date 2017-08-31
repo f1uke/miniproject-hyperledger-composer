@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { VehicleService } from './Vehicle.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-Vehicle',
-	templateUrl: './Vehicle.component.html',
-	styleUrls: ['./Vehicle.component.css'],
+  selector: 'app-Vehicle',
+  templateUrl: './Vehicle.component.html',
+  styleUrls: ['./Vehicle.component.css'],
   providers: [VehicleService]
 })
 export class VehicleComponent implements OnInit {
@@ -15,26 +15,26 @@ export class VehicleComponent implements OnInit {
   private allAssets;
   private asset;
   private currentId;
-	private errorMessage;
-
-  
-      vin = new FormControl("", Validators.required);
-  
-      owner = new FormControl("", Validators.required);
-  
+  private errorMessage;
 
 
-  constructor(private serviceVehicle:VehicleService, fb: FormBuilder) {
+  vin = new FormControl("", Validators.required);
+
+  owner = new FormControl("", Validators.required);
+
+
+
+  constructor(private serviceVehicle: VehicleService, fb: FormBuilder) {
     this.myForm = fb.group({
-    
-        
-          vin:this.vin,
-        
-    
-        
-          owner:this.owner
-        
-    
+
+
+      vin: this.vin,
+
+
+
+      owner: this.owner
+
+
     });
   };
 
@@ -45,203 +45,203 @@ export class VehicleComponent implements OnInit {
   loadAll(): Promise<any> {
     let tempList = [];
     return this.serviceVehicle.getAll()
-    .toPromise()
-    .then((result) => {
-			this.errorMessage = null;
-      result.forEach(asset => {
-        tempList.push(asset);
+      .toPromise()
+      .then((result) => {
+        this.errorMessage = null;
+        result.forEach(asset => {
+          tempList.push(asset);
+        });
+        this.allAssets = tempList;
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else {
+          this.errorMessage = error;
+        }
       });
-      this.allAssets = tempList;
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
-    });
   }
 
   addAsset(form: any): Promise<any> {
 
     this.asset = {
       $class: "org.acme.vehicle.auction.Vehicle",
-      
-        
-          "vin":this.vin.value,
-        
-      
-        
-          "owner":this.owner.value
-        
-      
+
+
+      "vin": this.vin.value,
+
+
+
+      "owner": this.owner.value
+
+
     };
 
     this.myForm.setValue({
-      
-        
-          "vin":null,
-        
-      
-        
-          "owner":null
-        
-      
+
+
+      "vin": null,
+
+
+
+      "owner": null
+
+
     });
 
     return this.serviceVehicle.addAsset(this.asset)
-    .toPromise()
-    .then(() => {
-			this.errorMessage = null;
-      this.myForm.setValue({
-      
-        
-          "vin":null,
-        
-      
-        
-          "owner":null 
-        
-      
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+        this.myForm.setValue({
+
+
+          "vin": null,
+
+
+
+          "owner": null
+
+
+        });
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else {
+          this.errorMessage = error;
+        }
       });
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else{
-            this.errorMessage = error;
-        }
-    });
   }
 
 
-   updateAsset(form: any): Promise<any> {
+  updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "org.acme.vehicle.auction.Vehicle",
-      
-        
-          
-        
-    
-        
-          
-            "owner":this.owner.value
-          
-        
-    
+
+
+
+
+
+
+
+      "owner": this.owner.value
+
+
+
     };
 
-    return this.serviceVehicle.updateAsset(form.get("vin").value,this.asset)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-            else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
-    });
+    return this.serviceVehicle.updateAsset(form.get("vin").value, this.asset)
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else {
+          this.errorMessage = error;
+        }
+      });
   }
 
 
   deleteAsset(): Promise<any> {
 
     return this.serviceVehicle.deleteAsset(this.currentId)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-			else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
-    });
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else {
+          this.errorMessage = error;
+        }
+      });
   }
 
-  setId(id: any): void{
+  setId(id: any): void {
     this.currentId = id;
   }
 
-  getForm(id: any): Promise<any>{
+  getForm(id: any): Promise<any> {
 
     return this.serviceVehicle.getAsset(id)
-    .toPromise()
-    .then((result) => {
-			this.errorMessage = null;
-      let formObject = {
-        
-          
-            "vin":null,
-          
-        
-          
-            "owner":null 
-          
-        
-      };
+      .toPromise()
+      .then((result) => {
+        this.errorMessage = null;
+        let formObject = {
+
+
+          "vin": null,
 
 
 
-      
-        if(result.vin){
+          "owner": null
+
+
+        };
+
+
+
+
+        if (result.vin) {
           formObject.vin = result.vin;
-        }else{
+        } else {
           formObject.vin = null;
         }
-      
-        if(result.owner){
+
+        if (result.owner) {
           formObject.owner = result.owner;
-        }else{
+        } else {
           formObject.owner = null;
         }
-      
 
-      this.myForm.setValue(formObject);
 
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        this.myForm.setValue(formObject);
+
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
         }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
         }
-        else{
-            this.errorMessage = error;
+        else {
+          this.errorMessage = error;
         }
-    });
+      });
 
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.myForm.setValue({
-      
-        
-          "vin":null,
-        
-      
-        
-          "owner":null 
-        
-      
-      });
+
+
+      "vin": null,
+
+
+
+      "owner": null
+
+
+    });
   }
 
 }

@@ -1,3 +1,58 @@
-<p>
-  bank works!
-</p>
+<div class="ui-g-12">
+	<div [routerLink]="['/Bank']" class="jumbotron text-center">
+		<img src="http://icons.iconarchive.com/icons/icons-land/gis-gps-map/256/Bank-icon.png" alt="Mountain View" style="width:128px;height:128px;">
+	</div>
+</div>
+
+<div class="container">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+	<h1 id='assetName'>Member</h1>
+	<div class="row">
+		<div class="col-md-12 text-right">
+			<button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">Add member</button>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-bordered table-responsive table-striped">
+				<thead class="thead">
+					<tr class="thead-cols">
+
+						<th class="info">firstName</th>
+
+						<th class="info">lastName</th>
+
+						<th class="info">email</th>
+
+						<th class="info">balance</th>
+
+						<th class="info">Actions</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let asset of allAssets">
+
+						<td>{{asset.firstName}}</td>
+
+						<td>{{asset.lastName}}</td>
+
+						<td>{{asset.email}}</td>
+
+						<td>{{asset.balance}}</td>
+
+						<td>
+							<button (click)="getForm(asset.vin);" type="button" class="btn btn-success" data-toggle="modal" data-target="#updateAssetModal">Update Asset</button>
+
+							<button (click)="setId(asset.vin);" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAssetModal">Delete Asset</button>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
