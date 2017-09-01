@@ -14,7 +14,7 @@ import { VehicleListingComponent } from './VehicleListing/VehicleListing.compone
 
 import {AccordionModule} from 'primeng/primeng';     //accordion and accordion tab
 import {MenuItem} from 'primeng/primeng';
-import {ButtonModule} from 'primeng/primeng';            //api
+import {ButtonModule, DropdownModule} from 'primeng/primeng';            //api
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CarComponent } from './car/car.component';
@@ -45,7 +45,8 @@ import { MemberComponent } from './member/member.component';
     AppRoutingModule,
     AccordionModule,
     BrowserAnimationsModule,
-    ButtonModule
+    ButtonModule,
+    DropdownModule
   ],
   providers: [
     Configuration,

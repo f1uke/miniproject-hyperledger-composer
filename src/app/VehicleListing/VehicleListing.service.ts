@@ -10,8 +10,7 @@ export class VehicleListingService {
 
 	
 		private NAMESPACE: string = 'VehicleListing';
-	
-
+		private NAMESPACE2: string = 'CloseBidding';
 
 
     constructor(private dataService: DataService<VehicleListing>) {
@@ -36,5 +35,10 @@ export class VehicleListingService {
     public deleteAsset(id: any): Observable<VehicleListing> {
       return this.dataService.delete(this.NAMESPACE, id);
     }
+
+    public closeBidding(itemToAdd: any): Observable<VehicleListing> {
+      return this.dataService.add(this.NAMESPACE2, itemToAdd);
+    }
+CloseBidding
 
 }
