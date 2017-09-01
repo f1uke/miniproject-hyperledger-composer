@@ -24,6 +24,7 @@ import {Event} from './org.hyperledger.composer.system';
       email: string;
       firstName: string;
       lastName: string;
+      balance: number;
    }
    export class Member extends User {
       balance: number;

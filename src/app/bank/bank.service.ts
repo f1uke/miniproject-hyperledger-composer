@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Vehicle } from '../org.acme.vehicle.auction';
+import { User } from '../org.acme.vehicle.auction';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -9,25 +9,25 @@ export class BankService {
 
   private NAMESPACE: string = 'Member';
 
-  constructor(private dataService: DataService<Vehicle>) { }
+  constructor(private dataService: DataService<User>) { }
 
-  public getAll(): Observable<Vehicle[]> {
+  public getAll(): Observable<User[]> {
     return this.dataService.getAll(this.NAMESPACE);
   }
 
-  public getAsset(id: any): Observable<Vehicle> {
+  public getAsset(id: any): Observable<User> {
     return this.dataService.getSingle(this.NAMESPACE, id);
   }
 
-  public addAsset(itemToAdd: any): Observable<Vehicle> {
+  public addAsset(itemToAdd: any): Observable<User> {
     return this.dataService.add(this.NAMESPACE, itemToAdd);
   }
 
-  public updateAsset(id: any, itemToUpdate: any): Observable<Vehicle> {
+  public updateAsset(id: any, itemToUpdate: any): Observable<User> {
     return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
   }
 
-  public deleteAsset(id: any): Observable<Vehicle> {
+  public deleteAsset(id: any): Observable<User> {
     return this.dataService.delete(this.NAMESPACE, id);
   }
 

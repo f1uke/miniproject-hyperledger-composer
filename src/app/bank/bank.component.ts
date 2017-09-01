@@ -19,20 +19,26 @@ export class BankComponent implements OnInit {
   private errorMessage;
 
 
-  vin = new FormControl("", Validators.required);
+  balance = new FormControl("", Validators.required);
 
-  owner = new FormControl("", Validators.required);
+  email = new FormControl("", Validators.required);
+
+  firstName = new FormControl("", Validators.required);
+
+  lastName = new FormControl("", Validators.required);
+
 
   constructor(private serviceBank: BankService, fb: FormBuilder) {
     this.myForm = fb.group({
 
 
-      vin: this.vin,
+      balance: this.balance,
 
+      email: this.email,
 
+      firstName: this.firstName,
 
-      owner: this.owner
-
+      lastName: this.lastName
 
     });
   }
@@ -68,14 +74,17 @@ export class BankComponent implements OnInit {
   addAsset(form: any): Promise<any> {
 
     this.asset = {
-      $class: "org.acme.vehicle.auction.Vehicle",
+      $class: "org.acme.vehicle.auction.Member",
 
 
-      "vin": this.vin.value,
+      "balance": this.balance.value,
 
+      "email": this.email.value,
 
+      "firstName": this.firstName.value,
 
-      "owner": this.owner.value
+      "lastName": this.lastName.value
+
 
 
     };
@@ -83,11 +92,13 @@ export class BankComponent implements OnInit {
     this.myForm.setValue({
 
 
-      "vin": null,
+      "balance": null,
 
+      "email": null,
 
+      "firstName": null,
 
-      "owner": null
+      "lastName": null
 
 
     });
@@ -99,14 +110,17 @@ export class BankComponent implements OnInit {
         this.myForm.setValue({
 
 
-          "vin": null,
+          "balance": null,
 
+          "email": null,
 
+          "firstName": null,
 
-          "owner": null
+          "lastName": null
 
 
         });
+        this.loadAll();
       })
       .catch((error) => {
         if (error == 'Server error') {
@@ -123,21 +137,21 @@ export class BankComponent implements OnInit {
       $class: "org.acme.vehicle.auction.Member",
 
 
+      "balance": this.balance.value,
 
+      "firstName": this.firstName.value,
 
-
-
-
-      "owner": this.owner.value
+      "lastName": this.lastName.value
 
 
 
     };
 
-    return this.serviceBank.updateAsset(form.get("vin").value, this.asset)
+    return this.serviceBank.updateAsset(form.get("email").value, this.asset)
       .toPromise()
       .then(() => {
         this.errorMessage = null;
+        this.loadAll();
       })
       .catch((error) => {
         if (error == 'Server error') {
@@ -159,6 +173,7 @@ export class BankComponent implements OnInit {
       .toPromise()
       .then(() => {
         this.errorMessage = null;
+        this.loadAll();
       })
       .catch((error) => {
         if (error == 'Server error') {
@@ -186,11 +201,14 @@ export class BankComponent implements OnInit {
         let formObject = {
 
 
-          "vin": null,
+          "balance": null,
 
+          "email": null,
 
+          "firstName": null,
 
-          "owner": null
+          "lastName": null
+
 
 
         };
@@ -198,16 +216,28 @@ export class BankComponent implements OnInit {
 
 
 
-        if (result.vin) {
-          formObject.vin = result.vin;
+        if (result.balance) {
+          formObject.balance = result.balance;
         } else {
-          formObject.vin = null;
+          formObject.balance = null;
         }
 
-        if (result.owner) {
-          formObject.owner = result.owner;
+        if (result.email) {
+          formObject.email = result.email;
         } else {
-          formObject.owner = null;
+          formObject.email = null;
+        }
+
+        if (result.firstName) {
+          formObject.firstName = result.firstName;
+        } else {
+          formObject.firstName = null;
+        }
+
+        if (result.lastName) {
+          formObject.lastName = result.lastName;
+        } else {
+          formObject.lastName = null;
         }
 
 
@@ -232,11 +262,14 @@ export class BankComponent implements OnInit {
     this.myForm.setValue({
 
 
-      "vin": null,
+      "balance": null,
 
+      "email": null,
 
+      "firstName": null,
 
-      "owner": null
+      "lastName": null
+
 
 
     });
