@@ -21,7 +21,7 @@
 
 
 					<div class="form-group text-left">
-						<label for="listingId">เลขไอดี</label>
+						<label for="listingId">เลขไอดีใบประมูล</label>
 
 
 						<input formControlName="listingId" type="text" class="form-control">
@@ -50,7 +50,7 @@
 					<div class="form-group text-left">
 						<label for="state">สถานะ</label>
 
-            <select formControlName="state" class="form-control">
+						<select formControlName="state" class="form-control">
                 <option value="FOR_SALE">FOR_SALE</option>
                 <option value="two">Two</option>
             </select>
@@ -69,7 +69,7 @@
 					</div> -->
 
 					<div class="form-group text-left">
-						<label for="vehicle">รถ(ทำเบียน)</label>
+						<label for="vehicle">รถ(ทะเบียน)</label>
 
 
 						<textarea formControlName="vehicle" class="form-control" rows="3"></textarea>
@@ -106,7 +106,7 @@
 
 
 					<div class="form-group text-left">
-						<label for="listingId">เลขไอดี</label>
+						<label for="listingId">เลขไอดีใบประมูล</label>
 
 
 						<input [ngModel]="listingId" formControlName="listingId" type="text" class="form-control">
@@ -135,7 +135,7 @@
 					<div class="form-group text-left">
 						<label for="state">สถานะ</label>
 
-            <select formControlName="state" class="form-control">
+						<select formControlName="state" class="form-control">
                 <option value="FOR_SALE">FOR_SALE</option>
                 <option value="two">Two</option>
             </select>
@@ -197,7 +197,42 @@
 </div>
 
 
+<div class="modal fade" id="show" tabindex="-1" role="dialog" aria-labelledby="deleteAssetModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="showLabel">Show Offers</h4>
+			</div>
+			<table class="table table-bordered table-responsive table-striped">
+				<thead class="thead">
+					<tr class="thead-cols">
 
+						<th class="info">ชื่อ</th>
+
+						<th class="info">ราคาที่ประมูล</th>
+
+					</tr>
+				</thead>
+				<tbody *ngFor="let asset of allAssets">
+					<tr *ngFor="let asset2 of asset.offers">
+
+						<td >
+							{{asset2.member.substring( 41, end )}}
+							<br>
+
+						</td>
+
+						<td>
+							{{asset2.bidPrice}}
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
 
 
@@ -223,7 +258,7 @@
 				<thead class="thead">
 					<tr class="thead-cols">
 
-						<th class="info">เลขไอดี</th>
+						<th class="info">เลขไอดีใบประมูล</th>
 
 						<th class="info">ราคาขั้นต่ำ</th>
 
@@ -250,9 +285,11 @@
 
 						<td>{{asset.state}}</td>
 
-						<td>{{asset.offers}}</td>
+						<td>
+							<button type="button" class="btn btn-button" data-toggle="modal" data-target="#show">Show</button>
+						</td>
 
-						<td>{{asset.vehicle}}</td>
+						<td>{{asset.vehicle.substring( 42, end )}}</td>
 
 						<td>
 							<button (click)="getForm(asset.listingId);" type="button" class="btn btn-success" data-toggle="modal" data-target="#updateAssetModal">Update</button>

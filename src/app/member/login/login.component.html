@@ -1,0 +1,23 @@
+<div class="ui-g-12">
+
+	<div class="ui-g-4">
+
+	</div>
+
+	<div class="ui-g-4">
+		<div class="ui-g-12" style="text-align: center">
+
+			<h3>Username</h3><input [(ngModel)]="name" type="text" pInputText />
+			<br>
+			<h3>Password</h3><input [(ngModel)]="pass" type="password" pInputText />
+			<br>
+			<button *ngIf="fetching" (click)="submitLogin(name);" [routerLink]="['Content', name]" pButton type="button" label="Login"></button>
+
+		</div>
+	</div>
+
+	<div class="ui-g-4">
+
+	</div>
+
+</div>

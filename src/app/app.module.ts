@@ -14,12 +14,14 @@ import { VehicleListingComponent } from './VehicleListing/VehicleListing.compone
 
 import {AccordionModule} from 'primeng/primeng';     //accordion and accordion tab
 import {MenuItem} from 'primeng/primeng';
-import {ButtonModule, DropdownModule} from 'primeng/primeng';            //api
+import {ButtonModule, DropdownModule, FieldsetModule} from 'primeng/primeng';            //api
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CarComponent } from './car/car.component';
 import { BankComponent } from './bank/bank.component';
 import { MemberComponent } from './member/member.component';
+import { ContentComponent } from './member/content/content.component';
+import { LoginComponent } from './member/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,10 @@ import { MemberComponent } from './member/member.component';
 		
     MemberComponent,
 		
+    ContentComponent,
+		
+    LoginComponent,
+		
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,8 @@ import { MemberComponent } from './member/member.component';
     AccordionModule,
     BrowserAnimationsModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    FieldsetModule
   ],
   providers: [
     Configuration,

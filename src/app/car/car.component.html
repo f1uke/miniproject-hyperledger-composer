@@ -23,7 +23,7 @@
 
 
 					<div class="form-group text-left">
-						<label for="vin">ทะเบียน</label>
+						<label for="vin">ทะเบียนรถ</label>
 
 
 						<input formControlName="vin" type="text" class="form-control">
@@ -69,7 +69,7 @@
 
 
 					<div class="form-group text-left">
-						<label for="vin">ทะเบียน</label>
+						<label for="vin">ทะเบียนรถ</label>
 
 
 						<input [ngModel]="vin" formControlName="vin" type="text" class="form-control">
@@ -143,7 +143,7 @@
 			<thead class="thead">
 			  <tr class="thead-cols">
 				
-					<th class="info">ทะเบียน</th>
+					<th class="info">ทะเบียนรถ</th>
 				
 					<th class="info">เจ้าของ</th>
 				
@@ -156,7 +156,7 @@
 				
 					<td>{{asset.vin}}</td>
 				
-					<td>{{asset.owner}}</td>
+					<td>{{asset.owner.substring( 41, end )}}</td>
 				
 				<td>
 				  <button (click)="getForm(asset.vin);" type="button" class="btn btn-success" data-toggle="modal" data-target="#updateAssetModal">Update Asset</button>

@@ -1,0 +1,116 @@
+<div class="ui-g-12">
+	<div [routerLink]="['/Member']" class="jumbotron text-center">
+		<img src="http://www.freeiconspng.com/uploads/cartoon-png-16.png" alt="Loading" style="width:100px;height:256px;">
+		<h1>ลูกค้า</h1>
+	</div>
+</div>
+<div class="modal fade" id="updateAssetModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="updateAssetModalLabel">Update Asset</h4>
+			</div>
+			<form [formGroup]="myForm">
+				<div class="modal-body">
+
+
+
+					<div class="form-group text-left">
+						<label for="bidPrice">bidPrice</label>
+						<input formControlName="bidPrice" type="text" class="form-control">
+					</div>
+
+
+
+				</div>
+				<div class="modal-footer">
+					<button (click)="addAsset(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+	<h1 id='assetName'>รายการรถที่เปิดประมูล</h1>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-bordered table-responsive table-striped">
+				<thead class="thead">
+					<tr class="thead-cols">
+
+						<th class="info">vehicle</th>
+
+						<th class="info">Price</th>
+
+						<th class="info">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let asset of allAssets">
+
+						<td>{{asset.vehicle.substring( 42, end )}}</td>
+
+						<td>{{asset.reservePrice}}</td>
+
+						<td>
+							<!-- send to offer
+                                "bidPrice": 0,
+                                  "listing": "string",
+                                  "member": "string",
+                                -->
+							<button (click)="getID(asset.listingId);" type="button" class="btn btn-success" data-toggle="modal" data-target="#updateAssetModal">Bid</button>
+
+							<!-- <button (click)="setId(asset.vin);" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAssetModal">Delete Asset</button> -->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<!-- <div class="container">
+		<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+			<strong>Error:</strong> {{errorMessage}}
+		</div>
+		<h1 id='assetName'>รถของฉัน</h1>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-bordered table-responsive table-striped">
+					<thead class="thead">
+						<tr class="thead-cols">
+
+							<th class="info">vehicle</th>
+
+							<th class="info">Price</th>
+
+							<th class="info">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let asset of allAssets">
+
+							<td>{{asset.vehicle.substring( 42, end )}}</td>
+
+							<td>{{asset.reservePrice}}</td>
+
+							<td>
+								
+								<button (click)="getID(asset.listingId);" type="button" class="btn btn-success" data-toggle="modal" data-target="#updateAssetModal">Bid</button>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div> -->
+	</div>

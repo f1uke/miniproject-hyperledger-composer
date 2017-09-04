@@ -8,6 +8,8 @@ import { VehicleListingComponent } from './VehicleListing/VehicleListing.compone
 import { BankComponent } from './bank/bank.component';
 import { CarComponent } from './car/car.component';
 import { MemberComponent } from './member/member.component';
+import { ContentComponent } from './member/content/content.component';
+import { LoginComponent } from './member/login/login.component';
 
 const routes: Routes = [
   // { path: 'transaction', component: TransactionComponent },
@@ -21,7 +23,14 @@ const routes: Routes = [
 
   { path: 'Car', component: CarComponent },
 
-  { path: 'Member', component: MemberComponent },
+  {
+    path: 'Member', component: MemberComponent,
+    children: [
+      { path: '', component: LoginComponent },
+      { path: 'Content/:name', component: ContentComponent }
+    ]
+  },
+
 
   { path: '**', redirectTo: '' }
 
