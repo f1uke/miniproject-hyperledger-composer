@@ -1,3 +1,5 @@
+# ความเป็นมา
+โปรเจคนี้เป็นโปรเจคระหว่างฝึกงานกับบริษัท CDG Systems Ltd.
 # 1 setup
 https://hyperledger.github.io/composer/installing/development-tools.html
 
